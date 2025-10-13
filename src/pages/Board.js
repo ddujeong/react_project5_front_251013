@@ -1,3 +1,5 @@
+import './Board.css';
+
 const Board = () => {
     return(
         <div>

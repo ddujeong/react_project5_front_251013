@@ -1,3 +1,4 @@
+import './BoardWrite.css';
 const BoardWrite = () => {
     return(
         <div>

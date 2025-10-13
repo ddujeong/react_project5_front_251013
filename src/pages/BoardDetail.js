@@ -1,3 +1,4 @@
+import './BoardDetail.css';
 const BoardDetail = () => {
     return(
         <div>
