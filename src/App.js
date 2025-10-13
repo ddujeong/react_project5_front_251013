@@ -25,8 +25,10 @@ function App() {
   },[]);
 
   const handleLogout = async () => {
-    await api.post("/api/auth/logout");
-    setUser(null);
+    if(window.confirm("정말 로그아웃 하시겠습니까?")){
+       await api.post("/api/auth/logout");
+      setUser(null);
+    }
   }
   return (
     <div>
