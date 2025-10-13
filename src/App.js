@@ -7,18 +7,37 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import BoardWrite from "./pages/BoardWrite";
 import BoardDetail from "./pages/BoardDetail";
+import { useEffect, useState } from 'react';
+import api from './api/axiosConfig';
 
 function App() {
+  const [user, setUser] = useState(null); // 현재 로그인한 유저의 이름
+  const checkUser = async () => {
+    try {
+      const res = await api.get("api/auth/me");
+      setUser(res.data.username);
+    } catch (error) {
+      setUser(null);
+    }
+  }
+  useEffect(() => {
+    checkUser();
+  },[]);
+
+  const handleLogout = async () => {
+    await api.post("/api/auth/logout");
+    setUser(null);
+  }
   return (
     <div>
-      <NavBar />
+      <NavBar onLogout={handleLogout} user={user}/>
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/login' element={<Login />}></Route>
+        <Route path='/login' element={<Login onLogin={setUser} />}></Route>
         <Route path='/signup' element={<SignUp />}></Route>
-        <Route path='/board/:id' element={<Board />}></Route>
-        <Route path='/boardwrite' element={<BoardWrite />}></Route>
-        <Route path='/detail' element={<BoardDetail />}></Route>
+        <Route path='/board' element={<Board />}></Route>
+        <Route path='/board/write' element={<BoardWrite />}></Route>
+        <Route path='/board/:id' element={<BoardDetail />}></Route>
       </Routes>
     </div>
   );

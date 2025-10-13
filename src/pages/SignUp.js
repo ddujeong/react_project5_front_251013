@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './SignUp.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axiosConfig';
 const SignUp = () => {
@@ -8,6 +7,7 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const handleSignUp = async(e) => {
+        e.preventDefault();
         try {
             await api.post("/api/auth/signup",
                 {username, password})
