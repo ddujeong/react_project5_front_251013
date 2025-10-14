@@ -1,0 +1,40 @@
+.container{
+    max-width: 800px;
+    padding: 0 10px;
+    margin: 20px auto;
+}
+h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.board_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.board_table th {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+.board_table td {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    text-align: center;
+}
+.write_button_container{
+    text-align: right;
+}
+.write_button{
+    background-color: #1e88e5;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.write_button:hover{
+    background: #0263b8;
+    color: white;
+}

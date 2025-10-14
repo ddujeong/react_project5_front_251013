@@ -37,7 +37,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/login' element={<Login onLogin={setUser} />}></Route>
         <Route path='/signup' element={<SignUp />}></Route>
-        <Route path='/board' element={<Board />}></Route>
+        <Route path='/board' element={<Board user={user} />}></Route>
         <Route path='/board/write' element={<BoardWrite />}></Route>
         <Route path='/board/:id' element={<BoardDetail />}></Route>
       </Routes>
