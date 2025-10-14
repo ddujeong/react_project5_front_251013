@@ -38,8 +38,8 @@ function App() {
         <Route path='/login' element={<Login onLogin={setUser} />}></Route>
         <Route path='/signup' element={<SignUp />}></Route>
         <Route path='/board' element={<Board user={user} />}></Route>
-        <Route path='/board/write' element={<BoardWrite />}></Route>
-        <Route path='/board/:id' element={<BoardDetail />}></Route>
+        <Route path='/board/write' element={<BoardWrite user={user} />}></Route>
+        <Route path='/board/:id' element={<BoardDetail user={user} />}></Route>
       </Routes>
     </div>
   );

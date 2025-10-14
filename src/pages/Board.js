@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import api from '../api/axiosConfig';
 import './Board.css';
+import { useNavigate } from 'react-router-dom';
 
 const Board = ({user}) => {
     const[posts, setPosts]= useState([]);
+    const navigate = useNavigate();
 
     const loadPosts = async() => {
         try {
@@ -13,13 +15,20 @@ const Board = ({user}) => {
             console.error(error)
         }
     };
+    const handelWrite = () => {
+        if(!user){
+            alert("로그인 후 글 작성 가능합니다.");
+            return navigate("/board");
+        }
+        return navigate("/board/write")
+    }
     useEffect(() => {
+
         loadPosts();
     },[]);
 
     const formatDate = (dateString)  => {
-        const date = new Date(dateString);
-        return dateString;
+        return dateString.substring(0,10);
     }
     return(
         <div className='container'>
@@ -35,7 +44,7 @@ const Board = ({user}) => {
                 </thead>
                 <tbody>
                     { posts.length > 0 ? (
-                        posts.reverse().map((p, idx) => ( // reverse => 최신글이 위로 오게
+                        posts.slice().reverse().map((p, idx) => ( // reverse => 최신글이 위로 오게
                             <tr key={p.id}>
                                 <td>{posts.length - idx}</td>
                                 <td>{p.title}</td>
@@ -55,7 +64,7 @@ const Board = ({user}) => {
                 </tbody>
             </table>
             <div className='write_button_container'>
-                <button className='write_button'>글쓰기</button>
+                <button onClick={handelWrite } className='write_button'>글쓰기</button>
             </div>
         </div>
     )
