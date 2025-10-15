@@ -33,6 +33,7 @@ h2{
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin:0 10px 10px;
 }
 .write_button:hover{
     background: #0263b8;
@@ -45,4 +46,31 @@ h2{
 }
 .click_title:hover {
     text-decoration: underline;
+}
+.pagination {
+    margin-top: 20px;
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+}
+.pagination button {
+    padding: 5px 10px ;
+    border:  1px solid #dddddd;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom:  20px;
+}
+.pagination button.active{
+    padding: 5px 10px ;
+    border:  1px solid #dddddd;
+    border-radius: 5px;
+    background-color: rgb(0, 99, 180);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }

@@ -30,7 +30,7 @@ const BoardWrite = ({user}) => {
         }
     }
     return(
-        <div className='write-container'>
+        <div className='write_container'>
             <h2>글 쓰기</h2>
             <form onSubmit={handleSubmit} className='write_form'>
                 <input type='text'placeholder='제목' value={title}

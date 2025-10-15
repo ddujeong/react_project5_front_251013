@@ -45,7 +45,7 @@ const Board = ({user}) => {
     // >(&gt;) => [10,11,12,13,14,15]
     const getPageNumbers = () => {
         const startPage = Math.floor(currentPage / 10) * 10;
-        const endPage = Math.min(startPage + (10-1) , totalPages );
+        const endPage = Math.min(startPage + 10 , totalPages );
         const pages = [];
         for (let i = startPage; i < endPage; i++) {
             pages.push(i);
@@ -60,6 +60,9 @@ const Board = ({user}) => {
     return(
         <div className='container'>
             <h2>게시판</h2>
+            <div className='write_button_container'>
+                <button onClick={handelWrite } className='write_button'>글쓰기</button>
+            </div>
             {loading && <p>게시판 글 리스트 로딩 중...</p>}
             {error && <p style={{color:"red"}}>{error}</p>}
             <table className='board_table'>
@@ -75,7 +78,7 @@ const Board = ({user}) => {
                     { posts.length > 0 ? (
                         posts.map((p, idx) => ( // reverse => 최신글이 위로 오게
                             <tr key={p.id}>
-                                <td>{p.id}</td>
+                                <td>{totalItems - (idx + (currentPage * 10))}</td>
                                 <td className='click_title' onClick={() => navigate(`/board/${p.id}`)}>{p.title}</td>
                                 <td>{p.author.username}</td>
                                 <td>{formatDate(p.createdate)}</td>
@@ -93,15 +96,15 @@ const Board = ({user}) => {
             </table>
             {/* 페이징 시작 */}
             <div className='pagination'>
+                <button onClick={() => setCurrentPage(0)} disabled={currentPage === 0}>&lt;&lt;</button>
                 <button onClick={() => setCurrentPage(currentPage -1)} disabled={currentPage === 0}>&lt;</button>
                 {getPageNumbers().map((num) =>(
-                    <button onClick={() => setCurrentPage(num)}>{num + 1}</button>
+                    <button className={num === currentPage ? "active" : ""} key={num} onClick={() => setCurrentPage(num)}>{num + 1}</button>
                 )) }
                 <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === (totalPages -1) || totalPages ===0} >&gt;</button>
+                <button onClick={() => setCurrentPage(totalPages-1)} disabled={currentPage === totalPages-1 || totalPages ===0}>&gt;&gt;</button>
             </div>
-            <div className='write_button_container'>
-                <button onClick={handelWrite } className='write_button'>글쓰기</button>
-            </div>
+            
         </div>
     )
 };
