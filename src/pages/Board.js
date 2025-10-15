@@ -7,13 +7,20 @@ const Board = ({user}) => {
     const [posts, setPosts]= useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+
     const navigate = useNavigate();
 
-    const loadPosts = async() => {
+    const loadPosts = async(page = 0) => {
         try {
             setLoading(true);
-            const res = await api.get("/api/board"); // 모든 글 가져오기 요청
-            setPosts(res.data);
+            const res = await api.get(`/api/board?page=${page}&size=10`); // 모든 글 가져오기 요청
+            setPosts(res.data.posts); // posts => 전체 게시글(게시글의 배열)
+            setCurrentPage(res.data.currentPage); // 현재 페이지
+            setTotalItems(res.data.totalItems); // 전체 게시글 수
+            setTotalPages(res.data.totalPages); // 전체 페이지 수 
         } catch (error) {
             console.error(error);
             setError("게시글을 불러오는데 실패하였습니다.");
@@ -30,10 +37,23 @@ const Board = ({user}) => {
         return navigate("/board/write")
     }
     useEffect(() => {
+        loadPosts(currentPage);
+    },[currentPage]);
 
-        loadPosts();
-    },[]);
+    // 페이지 번호 그룹 배열 반한 함수(10개만 표시)
+    // ex> 총 게시글 수 (157) => 16페이지 필요 [0,1,2,3,4,5,6,7,8,9]
+    // >(&gt;) => [10,11,12,13,14,15]
+    const getPageNumbers = () => {
+        const startPage = Math.floor(currentPage / 10) * 10;
+        const endPage = Math.min(startPage + (10-1) , totalPages );
+        const pages = [];
+        for (let i = startPage; i < endPage; i++) {
+            pages.push(i);
+        }
+        return pages;
+    }
 
+    // 날짜 포맷 함수
     const formatDate = (dateString)  => {
         return dateString.substring(0,10);
     }
@@ -53,9 +73,9 @@ const Board = ({user}) => {
                 </thead>
                 <tbody>
                     { posts.length > 0 ? (
-                        posts.slice().reverse().map((p, idx) => ( // reverse => 최신글이 위로 오게
+                        posts.map((p, idx) => ( // reverse => 최신글이 위로 오게
                             <tr key={p.id}>
-                                <td>{posts.length - idx}</td>
+                                <td>{p.id}</td>
                                 <td className='click_title' onClick={() => navigate(`/board/${p.id}`)}>{p.title}</td>
                                 <td>{p.author.username}</td>
                                 <td>{formatDate(p.createdate)}</td>
@@ -69,9 +89,16 @@ const Board = ({user}) => {
                         </tr>
                     )
                 }
-                    
                 </tbody>
             </table>
+            {/* 페이징 시작 */}
+            <div className='pagination'>
+                <button onClick={() => setCurrentPage(currentPage -1)} disabled={currentPage === 0}>&lt;</button>
+                {getPageNumbers().map((num) =>(
+                    <button onClick={() => setCurrentPage(num)}>{num + 1}</button>
+                )) }
+                <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === (totalPages -1) || totalPages ===0} >&gt;</button>
+            </div>
             <div className='write_button_container'>
                 <button onClick={handelWrite } className='write_button'>글쓰기</button>
             </div>

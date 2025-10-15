@@ -98,7 +98,9 @@ const BoardDetail = ({user}) => {
                 )}
             </div>
             </>
-        )}
+        )
+
+        }
         </div>
     )
 };
