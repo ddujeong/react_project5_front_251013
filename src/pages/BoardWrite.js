@@ -5,21 +5,28 @@ import api from '../api/axiosConfig';
 const BoardWrite = ({user}) => {
     const [title, setTitle] = useState("");
     const [content, setContent]= useState("");
-    const navigete = useNavigate();
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault(); // 페이지 새로고침 방지
-
+        
         // 로그인 한 유저만 글쓰기 허용
         if(!user){
             alert("로그인 후 글 작성 가능합니다.");
-            return navigete("/board");
+            navigate("/login");
+            return ;
         }
         try {
             await api.post("/api/board", {title, content});
             alert("글 작성 완료!")
-            navigete("/board");
-        } catch (error) {
-            console.error(error)
+            navigate("/board");
+        } catch (err) {
+            if(err.response && err.response.status === 400){
+                setErrors(err.response.data);
+            } else{
+                 console.error(err);
+                 alert("글 작성 실패");
+            }
         }
     }
     return(
@@ -31,9 +38,11 @@ const BoardWrite = ({user}) => {
                 <textarea placeholder='내용' value={content}
                     onChange={(e) => setContent(e.target.value)}>
                 </textarea>
+                {errors.title && <p style={{color:"red", fontSize:"13px"}}>{errors.title}</p>}
+                {errors.content && <p style={{color:"red", fontSize:"13px"}}>{errors.content}</p>}
                 <div className='button_group'>
                     <button type='submit'>등록</button>
-                    <button type='button' onClick={() => navigete("/board")}>취소</button>
+                    <button type='button' onClick={() => navigate("/board")}>취소</button>
                 </div>
             </form>
 

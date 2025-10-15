@@ -38,3 +38,11 @@ h2{
     background: #0263b8;
     color: white;
 }
+.click_title {
+    cursor: pointer;
+    color: #1242df;
+    font-weight: bold;
+}
+.click_title:hover {
+    text-decoration: underline;
+}

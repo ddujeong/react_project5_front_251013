@@ -4,15 +4,22 @@ import './Board.css';
 import { useNavigate } from 'react-router-dom';
 
 const Board = ({user}) => {
-    const[posts, setPosts]= useState([]);
+    const [posts, setPosts]= useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const loadPosts = async() => {
         try {
+            setLoading(true);
             const res = await api.get("/api/board"); // 모든 글 가져오기 요청
             setPosts(res.data);
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            setError("게시글을 불러오는데 실패하였습니다.");
+            setPosts([]);
+        } finally{
+            setLoading(false);
         }
     };
     const handelWrite = () => {
@@ -33,6 +40,8 @@ const Board = ({user}) => {
     return(
         <div className='container'>
             <h2>게시판</h2>
+            {loading && <p>게시판 글 리스트 로딩 중...</p>}
+            {error && <p style={{color:"red"}}>{error}</p>}
             <table className='board_table'>
                 <thead>
                     <tr>
@@ -47,7 +56,7 @@ const Board = ({user}) => {
                         posts.slice().reverse().map((p, idx) => ( // reverse => 최신글이 위로 오게
                             <tr key={p.id}>
                                 <td>{posts.length - idx}</td>
-                                <td>{p.title}</td>
+                                <td className='click_title' onClick={() => navigate(`/board/${p.id}`)}>{p.title}</td>
                                 <td>{p.author.username}</td>
                                 <td>{formatDate(p.createdate)}</td>
                             </tr>
