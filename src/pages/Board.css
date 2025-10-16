@@ -1,76 +1,76 @@
-.container{
-    max-width: 800px;
-    padding: 0 10px;
-    margin: 20px auto;
+.container {
+  max-width: 800px;
+  padding: 0 10px;
+  margin: 20px auto;
 }
-h2{
-    text-align: center;
-    margin-bottom: 20px;
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 .board_table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 .board_table th {
-    border: 1px solid #dddddd;
-    padding: 10px;
-    text-align: center;
-    background-color: #f4f4f4;
+  border: 1px solid #dddddd;
+  padding: 10px;
+  text-align: center;
+  background-color: #f4f4f4;
 }
 .board_table td {
-    border: 1px solid #dddddd;
-    padding: 10px;
-    text-align: center;
+  border: 1px solid #dddddd;
+  padding: 10px;
+  text-align: center;
 }
-.write_button_container{
-    text-align: right;
+.write_button_container {
+  text-align: right;
 }
-.write_button{
-    background-color: #1e88e5;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin:0 10px 10px;
+.write_button {
+  background-color: #1e88e5;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 10px 10px;
 }
-.write_button:hover{
-    background: #0263b8;
-    color: white;
+.write_button:hover {
+  background: #0263b8;
+  color: white;
 }
 .click_title {
-    cursor: pointer;
-    color: #1242df;
-    font-weight: bold;
+  cursor: pointer;
+  color: #1242df;
+  font-weight: bold;
 }
 .click_title:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 .pagination {
-    margin-top: 20px;
-    gap: 5px;
-    display: flex;
-    justify-content: center;
+  margin-top: 20px;
+  gap: 5px;
+  display: flex;
+  justify-content: center;
 }
 .pagination button {
-    padding: 5px 10px ;
-    border:  1px solid #dddddd;
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-    margin-bottom:  20px;
+  padding: 5px 10px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
 }
-.pagination button.active{
-    padding: 5px 10px ;
-    border:  1px solid #dddddd;
-    border-radius: 5px;
-    background-color: rgb(0, 99, 180);
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
+.pagination button.active {
+  padding: 5px 10px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  background-color: rgb(0, 99, 180);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
 }
 .pagination button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
