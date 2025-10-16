@@ -72,7 +72,7 @@ const BoardDetail = ({user}) => {
         try{
             setLoading(true);
             const res = await api.get(`/api/comment/${id}`);
-            setComments(res.data);
+            setComments(Array.isArray(res.data) ? res.data : []);
         } catch(err) {
             console.error(err);
             setError("해당 댓글은 존재하지 않습니다.");
@@ -188,10 +188,11 @@ const BoardDetail = ({user}) => {
             <div className='comment_section'>
                 <h4>댓글 작성</h4>
                 <form onSubmit={handleComment} className='comment_form'>
-                    <textarea placeholder='댓글을 작성해주세요...' value={newComment} onChange={(e) =>setNewComment(e.target.value)}></textarea>
+                    <textarea placeholder='댓글을 작성해주세요...' disabled={user !== null} value={newComment} onChange={(e) =>setNewComment(e.target.value)}></textarea>
                     <button type='submit' className='comment_button'>작성</button>
                 </form>
                 <ul className='comment_list'>
+                    {comments.length === 0 && <p>아직 등록된 댓글이 없습니다.<br></br>댓글을 작성해주세요!</p>}
                     {comments.map((c)=> (
                         <li key={c.id} className='comment_item'>
                             <div className='comment_header'>
@@ -212,7 +213,7 @@ const BoardDetail = ({user}) => {
                                     <div className='comment_content'>{c.content}</div> 
                                     <div className='button_group'>
                                     {/* 로그인 한 유저 본인이 쓴 댓글만 수정 삭제 가능 */}
-                                    {user === c.author.username && (
+                                    {user && c.author.username === user && (
                                     <>
                                         <button className='edit_button' onClick={() => {setEditingCommentId(c.id); setEditingCommentContent(c.content)}}>수정</button>
                                         <button className='delete_button' onClick={() => handleCommentDelete(c.id)}>삭제</button>
