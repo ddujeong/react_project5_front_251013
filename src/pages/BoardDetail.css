@@ -15,10 +15,15 @@
 }
 
 /* 작성자 */
-.detail_container .author {
+.detail_container .author,
+.detail_container .post_date {
   font-size: 14px;
   color: #555;
   margin-bottom: 20px;
+  justify-content: space-between;
+}
+.detail_container .post_date {
+  justify-items: flex-end;
 }
 
 /* 글 내용 */

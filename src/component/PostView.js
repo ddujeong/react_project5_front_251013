@@ -21,12 +21,19 @@ const PostView = ({ post, user, setEditing }) => {
       }
     }
   };
-
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString();
+  };
   const isAuthor = user && user === post.author.username;
   return (
-    <div>
+    <div className="post_item">
       <h2>{post.title}</h2>
-      <p className="author">작성자 : {post.author.username}</p>
+      <p className="author">
+        <b>작성자</b> : {post.author.username}{" "}
+      </p>
+      <p className="post_date">
+        <b>작성일</b> : {formatDate(post.createdate)}{" "}
+      </p>
       <div className="content">{post.content}</div>
       <div className="button_group">
         <button onClick={() => navigate("/board")} className="list_button">

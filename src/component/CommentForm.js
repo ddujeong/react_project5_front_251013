@@ -19,13 +19,13 @@ const CommentForm = ({ id, user }) => {
   };
   const handleComment = async (e) => {
     e.preventDefault();
-    if (!newComment.trim()) {
-      alert("댓글 내용을 입력해주세요");
-      return;
-    }
     if (!user) {
       alert("로그인 후 댓글 작성 가능합니다.");
       navigate("/login");
+      return;
+    }
+    if (!newComment.trim()) {
+      alert("댓글 내용을 입력해주세요");
       return;
     }
     try {
@@ -47,11 +47,11 @@ const CommentForm = ({ id, user }) => {
       <form onSubmit={handleComment} className="comment_form">
         <textarea
           placeholder="댓글을 작성해주세요..."
-          disabled={user === null}
+          disabled={!user}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         ></textarea>
-        <button type="submit" className="comment_button">
+        <button disabled={!user} type="submit" className="comment_button">
           작성
         </button>
       </form>
