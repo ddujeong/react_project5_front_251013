@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CommentList from "../component/CommentList";
 import api from "../api/axiosConfig";
+import CommentView from "../component/CommentView";
 
 const CommentForm = ({ id, user }) => {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const CommentForm = ({ id, user }) => {
           작성
         </button>
       </form>
-      <CommentList
+      <CommentView
         id={id}
         user={user}
         comments={comments}
