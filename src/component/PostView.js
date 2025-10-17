@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
-import { useEffect, useState } from "react";
 
 const PostView = ({ post, user, setEditing }) => {
   const navigate = useNavigate();

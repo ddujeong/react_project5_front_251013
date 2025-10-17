@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CommentList from "./CommentList";
+import CommentList from "../component/CommentList";
 import api from "../api/axiosConfig";
 
 const CommentForm = ({ id, user }) => {

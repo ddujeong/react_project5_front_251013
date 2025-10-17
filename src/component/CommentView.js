@@ -3,7 +3,7 @@ import CommentEdit from "./CommentEdit";
 const CommentView = ({ user, comments, loadComments }) => {
   // 날짜 포맷 함수
   const formatDate = (dateString) => {
-    return dateString.substring(0, 10);
+    return new Date(dateString).toLocaleString();
   };
 
   return (
@@ -21,7 +21,7 @@ const CommentView = ({ user, comments, loadComments }) => {
                 작성자 : {c.author.username}{" "}
               </span>
               <span className="comment_date">
-                작성일 :{formatDate(c.createdate)}
+                작성일 : {formatDate(c.createdate)}
               </span>
             </div>
             <CommentEdit user={user} loadComments={loadComments} comment={c} />
